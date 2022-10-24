@@ -2,6 +2,7 @@
 import random
 import string
 import sys
+import help
 
 arguments = sys.argv[1:]
 
@@ -10,10 +11,13 @@ length = 8
 #initialize combination string
 combination = ""
 
+
+if "--help" in arguments or "-h" in arguments:
+    help.printHelp()
 #remove various ascii types from sample
 if "--no-low" not in arguments:
     combination += string.ascii_lowercase
-if "--no-high" not in arguments:
+if "--no-up" not in arguments:
     combination += string.ascii_uppercase
 if "--no-digit" not in arguments:
     combination += string.digits
