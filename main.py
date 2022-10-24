@@ -10,7 +10,7 @@ length = 8
 #initialize combination string
 combination = ""
 
-#add various ascii types in string
+#remove various ascii types from sample
 if "--no-low" not in arguments:
     combination += string.ascii_lowercase
 if "--no-high" not in arguments:
@@ -19,9 +19,6 @@ if "--no-digit" not in arguments:
     combination += string.digits
 if "--no-punk" not in arguments:
     combination += string.punctuation
-
-
-#TODO: need to think of a way to make this work better ,it does not reuse characters in the password(random.sample counts)
 
 if "-l" in arguments:
     index_pos = arguments.index("-l")
@@ -36,8 +33,8 @@ if "-l" in arguments:
     length = int(arguments[index_pos + 1])
     
     # interger checks
-    if len(combination) < length:
-        sys.exit("Length too large")
+    if length > 256:
+        sys.exit("Length too large (Max is 256)")
     if length <= 0:
         sys.exit("Length value invalid")
     
@@ -47,7 +44,7 @@ if not combination:
     sys.exit("Sample size is zero, can't make password.")
 
 #separate and sample to create password
-temp = random.sample(combination,length)
+temp = random.choices(combination,k = length)
 
 password = "".join(temp)
 print(password)
