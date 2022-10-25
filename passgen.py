@@ -19,41 +19,39 @@
 import random
 import string
 import sys
-import help
-
-arguments = sys.argv[1:]
-
-length = 8
+import argparse
 
 #initialize combination string
 combination = ""
 
+#argument parsing starts here
+parser = argparse.ArgumentParser(description = "passgen - a simple password generator by SViN <svin@dismail.de>")
+parser.add_argument("--no-low", help="remove lowercase characters"
+                    ,action="store_true")
+parser.add_argument("--no-up", help="remove uppercase characters"
+                    ,action="store_true")
+parser.add_argument("--no-digit", help="remove digits"
+                    ,action="store_true")
+parser.add_argument("--no-punk", help="remove punctuation"
+                    ,action="store_true")
+parser.add_argument("-l", "--length", default=8,
+                    type=int, help="size of the output(Max is 256)")
+args = parser.parse_args()
 
-if "--help" in arguments or "-h" in arguments:
-    help.printHelp()
-#remove various ascii types from sample
-if "--no-low" not in arguments:
-    combination += string.ascii_lowercase
-if "--no-up" not in arguments:
+#removal/addition of strings in the sum
+if not args.no_low:
+    combination += string.ascii_lowercase  
+if not args.no_up:
     combination += string.ascii_uppercase
-if "--no-digit" not in arguments:
+if not args.no_digit:
     combination += string.digits
-if "--no-punk" not in arguments:
+if not args.no_punk:
     combination += string.punctuation
 
-if "-l" in arguments:
-    index_pos = arguments.index("-l")
-    
-    #Check if length value exists (-1 is for adjustment's sake)
-    if index_pos + 1 > len(arguments) - 1:
-        sys.exit("No number included")
-    #Check if value is interger
-    if not arguments[index_pos + 1].isdigit():
-        sys.exit("Length needs to be a number")
-    #Cast to to interget and store
-    length = int(arguments[index_pos + 1])
-    
-    # interger checks
+# length handling
+if args.length:
+    length = args.length
+     
     if length > 256:
         sys.exit("Length too large (Max is 256)")
     if length <= 0:
