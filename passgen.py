@@ -26,16 +26,16 @@ combination = ""
 
 #argument parsing starts here
 parser = argparse.ArgumentParser(description = "passgen - a simple password generator by SViN <svin@dismail.de>")
-parser.add_argument("--no-low", help="remove lowercase characters"
+parser.add_argument("--no-low", help="No lowercase characters"
                     ,action="store_true")
-parser.add_argument("--no-up", help="remove uppercase characters"
+parser.add_argument("--no-up", help="No uppercase characters"
                     ,action="store_true")
-parser.add_argument("--no-digit", help="remove digits"
+parser.add_argument("--no-digit", help="No digits"
                     ,action="store_true")
-parser.add_argument("--no-punk", help="remove punctuation"
+parser.add_argument("--no-punk", help="No punctuation"
                     ,action="store_true")
 parser.add_argument("-l", "--length", default=8,
-                    type=int, help="size of the output(Max is 256)")
+                    type=int, help="Change size of the output(Max is 256)")
 args = parser.parse_args()
 
 #removal/addition of strings in the sum
